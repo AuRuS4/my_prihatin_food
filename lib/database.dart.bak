@@ -1,0 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class DatabaseService {
+  final String uid;
+  DatabaseService({required this.uid});
+
+// collection reference
+  final CollectionReference donatePage =
+      FirebaseFirestore.instance.collection('donatePage');
+
+  Future updateUserData(
+      double customAmount, String paymentMethod, String selectedCause) async {
+    return await donatePage.document(uid).setData({
+      'customAmount': customAmount,
+      'paymentMethod': paymentMethod,
+      'selectedCause': selectedCause,
+    });
+  }
+}
+
+extension on CollectionReference<Object?> {
+  document(String uid) {}
+}
